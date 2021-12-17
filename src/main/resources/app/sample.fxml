@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import app.elements.Visualizer?>
+<?import app.elements.Indicator?>
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="app.controller.Controller"
+      prefHeight="400.0" prefWidth="600.0">
+    <Visualizer />
+    <VBox>
+        <Indicator fx:id="windSpeedIndicator" text="Wind" />
+        <Indicator fx:id="droneSpeedIndicator" text="Drone speed" />
+        <Indicator fx:id="droneAccelerationIndicator" text="Drone acceleration" />
+        <Slider/>
+        <Label text="Wind speed change" />
+        <Slider />
+        <Label text="Wind direction change" />
+    </VBox>
+</HBox>
