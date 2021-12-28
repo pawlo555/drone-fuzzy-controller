@@ -113,10 +113,10 @@ public class Controller implements EngineObserver {
     }
 
     @FXML private void windSpeedChangeProbabilityChanged() {
-        System.out.println(windSpeedChangeProbabilitySlider.getValue());
+        engine.getWind().updateWindSpeechChanger(windSpeedChangeProbabilitySlider.getValue());
     }
 
     @FXML private void windDirectionChangeProbabilityChanged() {
-        System.out.println(windDirectionChangeProbabilitySlider.getValue());
+        engine.getWind().updateDirectionChanger(windDirectionChangeProbabilitySlider.getValue());
     }
 }

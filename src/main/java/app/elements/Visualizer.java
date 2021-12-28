@@ -27,7 +27,7 @@ public class Visualizer extends Canvas {
 
     private void paintBackGround() {
         GraphicsContext gc = this.getGraphicsContext2D();
-
+        gc.clearRect(0, 0, SIZE, SIZE);
         gc.setFill(Color.YELLOW);
         gc.fillOval(SIZE/2.0-LONG_SIZE, SIZE/2.-LONG_SIZE, LONG_SIZE*2, LONG_SIZE*2);
 

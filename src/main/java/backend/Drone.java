@@ -4,39 +4,48 @@ import app.elements.Visualizer;
 
 public class Drone {
     private static final double DELTA_T = 0.1;
+    private static final double MAX_SPEED = 5;
 
-    private double speed = 1./3;
-    private Angle speedAngle = new Angle(0);
-    private double acceleration = 1./3;
-    private Angle accelerationAngle = new Angle(0);
+    private Vector2D speed = new Vector2D(0.1, 0.3);
+    private Vector2D acceleration = new Vector2D(0,0);
     private Vector2D position = new Vector2D(Visualizer.CENTER_POSITION);
 
-    public Drone() {
-
-    }
+    private final FuzzyController fuzzyController = new FuzzyController();
 
     public double getSpeed() {
-        return speed;
+        return speed.vectorLength();
     }
 
     public Angle getSpeedAngle() {
-        return speedAngle;
+        return speed.vectorAngle();
     }
 
     public double getAcceleration() {
-        return acceleration;
+        return acceleration.vectorLength();
     }
 
     public Angle getAccelerationAngle() {
-        return accelerationAngle;
+        return acceleration.vectorAngle();
     }
 
     public Vector2D getPosition() {
         return position;
     }
 
-    public void nextEpoch(Wind wind) {
-        //wind.getAngle();
+    public void nextEpoch() {
+        acceleration = fuzzyController.getAcceleration();
+        updateSpeed();
+    }
+
+    public void updateSpeed() {
+        speed = speed.add(acceleration.multiply(DELTA_T));
+    }
+
+    public void updatePosition(Wind wind) {
+        Vector2D windSpeed = wind.getAngle().toUnitVector().multiply(wind.getValue());
+        System.out.println(windSpeed);
+        Vector2D totalSpeed = windSpeed.add(speed);
+        position = position.add(totalSpeed.multiply(DELTA_T));
     }
 
 }
