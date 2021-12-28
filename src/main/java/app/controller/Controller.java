@@ -1,11 +1,10 @@
 package app.controller;
 
+import app.elements.Visualizer;
 import backend.Drone;
 import backend.Engine;
 import backend.EngineObserver;
 import backend.Wind;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -27,6 +26,8 @@ public class Controller implements EngineObserver {
     @FXML private Label droneSpeedLabel;
     @FXML private Label droneAccelerationLabel;
 
+    @FXML private Visualizer visualizer;
+
 
     private Engine engine;
 
@@ -45,11 +46,13 @@ public class Controller implements EngineObserver {
     public void nextEpoch() {
         paintImageViews();
         updateInfoLabels();
+        visualizer.repaint(engine.getDrone());
     }
 
     public void setEngine(Engine engine) {
         this.engine = engine;
         engine.addObserver(this);
+        visualizer.repaint(engine.getDrone());
     }
 
     private void paintImageViews() {
@@ -96,27 +99,24 @@ public class Controller implements EngineObserver {
 
     public void startSimulation() {
         engine.start();
-        engine.nextEpoch();
     }
 
     private void paintImageView(ImageView imageView, int angle) {
         imageView.setImage(arrowImage);
+        imageView.setRotate(angle-90);
     }
 
     private void updateInfoLabels(Label label, double value, int angle) {
-        System.out.println("JANusz");
-        System.out.println(value);
         DecimalFormat df = new DecimalFormat("00.00");
-        System.out.println(df.format(value));
         String angleValue = String.format("%03d", angle);
         label.setText("Value: " + df.format(value) + " direction: " + angleValue);
     }
 
     @FXML private void windSpeedChangeProbabilityChanged() {
-        System.out.println("Janusz");
+        System.out.println(windSpeedChangeProbabilitySlider.getValue());
     }
 
     @FXML private void windDirectionChangeProbabilityChanged() {
-
+        System.out.println(windDirectionChangeProbabilitySlider.getValue());
     }
 }

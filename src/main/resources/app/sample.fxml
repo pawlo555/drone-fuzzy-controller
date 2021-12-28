@@ -7,8 +7,8 @@
 <?import javafx.scene.image.ImageView?>
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="app.controller.Controller"
-      prefHeight="400.0" prefWidth="600.0">
-    <Visualizer />
+      prefHeight="400.0" prefWidth="1000.0">
+    <Visualizer fx:id="visualizer"/>
     <VBox>
         <Label text="Wind speed" />
         <ImageView fx:id="windSpeedImageView" />
@@ -20,9 +20,11 @@
         <ImageView fx:id="droneAccelerationImageView" />
         <Label fx:id="droneAccelerationLabel" />
         <Label text="Wind speed change probability:" />
-        <Slider fx:id="windSpeedChangeProbabilitySlider"/>
+        <Slider fx:id="windSpeedChangeProbabilitySlider" max="1" majorTickUnit="0.1" minorTickCount="4"
+                snapToTicks="true" showTickMarks="true" showTickLabels="true" minWidth="300"/>
         <Label text="Wind direction change probability:" />
-        <Slider fx:id="windDirectionChangeProbabilitySlider"/>
+        <Slider fx:id="windDirectionChangeProbabilitySlider" max="1" majorTickUnit="0.1" minorTickCount="4"
+                snapToTicks="true" showTickMarks="true" showTickLabels="true" minWidth="300"/>
         <Button text="Start" onAction="#startSimulation" />
     </VBox>
 </HBox>

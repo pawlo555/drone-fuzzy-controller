@@ -8,4 +8,9 @@ public class Vector2D {
         this.x = x;
         this.y = y;
     }
+
+    public Vector2D(Vector2D other) {
+        this.x = other.x;
+        this.y = other.y;
+    }
 }
