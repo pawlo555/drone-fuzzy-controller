@@ -4,18 +4,25 @@
 <?import javafx.scene.layout.*?>
 
 <?import app.elements.Visualizer?>
-<?import app.elements.Indicator?>
+<?import javafx.scene.image.ImageView?>
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="app.controller.Controller"
       prefHeight="400.0" prefWidth="600.0">
     <Visualizer />
     <VBox>
-        <Indicator fx:id="windSpeedIndicator" text="Wind" />
-        <Indicator fx:id="droneSpeedIndicator" text="Drone speed" />
-        <Indicator fx:id="droneAccelerationIndicator" text="Drone acceleration" />
-        <Slider/>
-        <Label text="Wind speed change" />
-        <Slider />
-        <Label text="Wind direction change" />
+        <Label text="Wind speed" />
+        <ImageView fx:id="windSpeedImageView" />
+        <Label fx:id="windSpeedLabel" />
+        <Label text="Drone speed" />
+        <ImageView fx:id="droneSpeedImageView" />
+        <Label fx:id="droneSpeedLabel" />
+        <Label text="Drone acceleration" />
+        <ImageView fx:id="droneAccelerationImageView" />
+        <Label fx:id="droneAccelerationLabel" />
+        <Label text="Wind speed change probability:" />
+        <Slider fx:id="windSpeedChangeProbabilitySlider"/>
+        <Label text="Wind direction change probability:" />
+        <Slider fx:id="windDirectionChangeProbabilitySlider"/>
+        <Button text="Start" onAction="#startSimulation" />
     </VBox>
 </HBox>
