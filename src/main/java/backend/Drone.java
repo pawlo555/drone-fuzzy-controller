@@ -3,7 +3,7 @@ package backend;
 public class Drone {
     private static final double DELTA_T = 0.1;
 
-    private Vector2D speed = new Vector2D(0.1, 0.3);
+    private Vector2D speed = new Vector2D(0, 0);
     private Vector2D acceleration = new Vector2D(0,0);
     private Vector2D position = new Vector2D(0,0);
 
@@ -30,7 +30,6 @@ public class Drone {
     }
 
     public void nextEpoch(Wind wind) {
-
         acceleration = fuzzyController.getAcceleration(speed.add(wind.getVector()), position);
         updateSpeed();
     }
@@ -41,9 +40,13 @@ public class Drone {
 
     public void updatePosition(Wind wind) {
         Vector2D windSpeed = wind.getAngle().toUnitVector().multiply(wind.getValue());
-        System.out.println(windSpeed);
         Vector2D totalSpeed = windSpeed.add(speed);
-        position = position.add(totalSpeed.multiply(DELTA_T));
+        updatePosition(totalSpeed);
     }
 
+    private void updatePosition(Vector2D totalSpeed) {
+        double x = totalSpeed.x;
+        double y = totalSpeed.y;
+        position = position.add(new Vector2D(x,y).multiply(DELTA_T));
+    }
 }

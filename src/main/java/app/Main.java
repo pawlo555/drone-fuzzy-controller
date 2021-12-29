@@ -22,8 +22,12 @@ public class Main extends Application {
         controller.setEngine(engine);
         engine.nextEpoch();
         controller.addSliderListener();
+
+        Scene scene = new Scene(root, 1020, 620);
+        scene.getStylesheets().add(getClass().getResource("style.css").toString());
+
         stage.setTitle("Drone Simulation");
-        stage.setScene(new Scene(root, 1280, 720));
+        stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
     }

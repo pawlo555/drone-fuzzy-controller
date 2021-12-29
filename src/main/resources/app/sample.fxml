@@ -7,24 +7,28 @@
 <?import javafx.scene.image.ImageView?>
 <HBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="app.controller.Controller"
-      prefHeight="400.0" prefWidth="1000.0">
+      prefHeight="600.0" prefWidth="1000.0"
+    styleClass="main">
     <Visualizer fx:id="visualizer"/>
     <VBox>
-        <Label text="Wind speed" />
+        <Label styleClass="title" text="Wind speed:" />
         <ImageView fx:id="windSpeedImageView" />
         <Label fx:id="windSpeedLabel" />
-        <Label text="Drone speed" />
+        <Label styleClass="title" text="Drone speed:" />
         <ImageView fx:id="droneSpeedImageView" />
         <Label fx:id="droneSpeedLabel" />
-        <Label text="Drone acceleration" />
+        <Label styleClass="title" text="Drone acceleration:" />
         <ImageView fx:id="droneAccelerationImageView" />
         <Label fx:id="droneAccelerationLabel" />
-        <Label text="Wind speed change probability:" />
+        <Label styleClass="title" text="Wind speed change probability:" />
         <Slider fx:id="windSpeedChangeProbabilitySlider" max="1" majorTickUnit="0.1" minorTickCount="4"
                 snapToTicks="true" showTickMarks="true" showTickLabels="true" minWidth="300"/>
-        <Label text="Wind direction change probability:" />
+        <Label styleClass="title" text="Wind direction change probability:" />
         <Slider fx:id="windDirectionChangeProbabilitySlider" max="1" majorTickUnit="0.1" minorTickCount="4"
                 snapToTicks="true" showTickMarks="true" showTickLabels="true" minWidth="300"/>
-        <Button text="Start" onAction="#startSimulation" />
+        <HBox>
+            <Button text="Stop" onAction="#stopSimulation" />
+            <Button text="Start" onAction="#startSimulation" />
+        </HBox>
     </VBox>
 </HBox>

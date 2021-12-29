@@ -1,0 +1,18 @@
+VBox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+HBox {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.title {
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.main {
+    -fx-border-width: 10;
+}

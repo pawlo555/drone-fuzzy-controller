@@ -2,7 +2,7 @@ package backend;
 
 public class Wind {
 
-    private double value = 1./3;
+    private double value = 0;
     private final Angle angle = new Angle();
 
     private final Changer windSpeedChanger = new Changer(1);

@@ -28,12 +28,11 @@ public class Controller implements EngineObserver {
 
     @FXML private Visualizer visualizer;
 
-
     private Engine engine;
 
     public Controller() {
-        arrowImage = new Image(getClass().getResource("arrow.png").toString(), 50, 50, false, false);
-
+        arrowImage = new Image(getClass().getResource("arrow.png").toString(), 50, 50,
+                false, false);
     }
 
     public void addSliderListener() {
@@ -103,6 +102,7 @@ public class Controller implements EngineObserver {
 
     private void paintImageView(ImageView imageView, int angle) {
         imageView.setImage(arrowImage);
+
         imageView.setRotate(angle-90);
     }
 
@@ -118,5 +118,9 @@ public class Controller implements EngineObserver {
 
     @FXML private void windDirectionChangeProbabilityChanged() {
         engine.getWind().updateDirectionChanger(windDirectionChangeProbabilitySlider.getValue());
+    }
+
+    @FXML private void stopSimulation() {
+        engine.stop();
     }
 }

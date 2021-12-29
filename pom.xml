@@ -14,7 +14,6 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.jFuzzyLogic/jFuzzyLogic -->
         <dependency>
             <groupId>net.sourceforge.jFuzzyLogic</groupId>
             <artifactId>jFuzzyLogic</artifactId>

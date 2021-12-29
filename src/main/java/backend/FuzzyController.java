@@ -1,6 +1,5 @@
 package backend;
 
-import app.elements.Visualizer;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 
@@ -17,12 +16,9 @@ public class FuzzyController {
 
     public FuzzyController() {
         String fileName = getClass().getResource("controller.fcl").getFile();
-        //String fileName= "C:\\Studia\\DroneFuzzyController\\src\\main\\resources\\backend\\controller.fcl";
-        System.out.println(fileName);
         fis = FIS.load(fileName, false);
 
         plotCharts();
-        System.out.println(fis);
     }
 
     public Vector2D getAcceleration(Vector2D totalSpeed, Vector2D position) {

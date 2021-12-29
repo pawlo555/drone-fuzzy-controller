@@ -37,6 +37,10 @@ public class Engine {
         timeline.play();
     }
 
+    public void stop() {
+        timeline.stop();
+    }
+
     public void addObserver(EngineObserver observer) {
         engineObservers.add(observer);
     }
