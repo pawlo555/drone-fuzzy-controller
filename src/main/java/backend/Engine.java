@@ -28,7 +28,7 @@ public class Engine {
 
     public void nextEpoch() {
         wind.nextEpoch();
-        drone.nextEpoch();
+        drone.nextEpoch(wind);
         drone.updatePosition(wind);
         notifyObservers();
     }

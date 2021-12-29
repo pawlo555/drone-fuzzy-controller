@@ -31,4 +31,8 @@ public class Wind {
     public void updateDirectionChanger(double newProbability) {
         windDirectionChanger.updateProbability(newProbability);
     }
+
+    public Vector2D getVector() {
+        return angle.toUnitVector().multiply(value);
+    }
 }

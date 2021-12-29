@@ -14,7 +14,6 @@ public class Visualizer extends Canvas {
     private final static int MEDIUM_SIZE = 100;
     private final static int LONG_SIZE = 150;
     private final static int DRONE_SIZE = 40;
-    public final static Vector2D CENTER_POSITION = new Vector2D(SIZE/2., SIZE/2.);
 
 
     private final Image droneImage;
@@ -39,7 +38,7 @@ public class Visualizer extends Canvas {
     }
 
     private void paintDrone(Drone drone) {
-        Vector2D position = drone.getPosition();
+        Vector2D position = toVisualizerPosition(drone.getPosition());
         GraphicsContext gc = this.getGraphicsContext2D();
         gc.drawImage(droneImage, position.x-DRONE_SIZE/2., position.y-DRONE_SIZE/2.);
     }
@@ -47,5 +46,9 @@ public class Visualizer extends Canvas {
     public void repaint(Drone drone) {
         paintBackGround();
         paintDrone(drone);
+    }
+
+    public Vector2D toVisualizerPosition(Vector2D position) {
+        return new Vector2D(position.x+SIZE/2., position.y+SIZE/2.);
     }
 }

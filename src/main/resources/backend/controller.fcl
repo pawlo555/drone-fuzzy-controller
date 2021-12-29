@@ -1,0 +1,134 @@
+FUNCTION_BLOCK drone_acceleration_controller
+
+VAR_INPUT
+total_x_speed : REAL;
+drone_x_position : REAL;
+
+total_y_speed : REAL;
+drone_y_position : REAL;
+END_VAR
+
+VAR_OUTPUT
+drone_x_acc: REAL;
+
+drone_y_acc: REAL;
+END_VAR
+
+FUZZIFY total_x_speed
+TERM big_negative := (-100, 1) (-50, 0);
+TERM medium_negative := (-100, 0) (-50, 1) (0, 0);
+TERM small := (-50, 0) (0, 1) (50, 0);
+TERM medium_positive := (0, 0) (50, 1) (100, 0);
+TERM big_positive := (50, 0) (100, 1);
+END_FUZZIFY
+
+FUZZIFY drone_x_position
+TERM far_negative := (-300, 1) (-150, 1) (-125, 0);
+TERM medium_negative := (-175, 0) (-150, 1) (-50, 1) (-25, 0);
+TERM middle := (-75, 0) (-50, 1) (50, 1) (75, 0);
+TERM medium_positive := (25, 0) (50, 1) (150, 1) (175, 0);
+TERM far_positive := (125, 0) (150, 1) (300, 1);
+END_FUZZIFY
+
+FUZZIFY total_y_speed
+TERM big_negative := (-100, 1) (-50, 0);
+TERM medium_negative := (-100, 0) (-50, 1) (0, 0);
+TERM small := (-50, 0) (0, 1) (50, 0);
+TERM medium_positive := (0, 0) (50, 1) (100, 0);
+TERM big_positive := (50, 0) (100, 1);
+END_FUZZIFY
+
+FUZZIFY drone_y_position
+TERM far_negative := (-300, 1) (-150, 1) (-125, 0);
+TERM medium_negative := (-175, 0) (-150, 1) (-50, 1) (-25, 0);
+TERM middle := (-75, 0) (-50, 1) (50, 1) (75, 0);
+TERM medium_positive := (25, 0) (50, 1) (150, 1) (175, 0);
+TERM far_positive := (125, 0) (150, 1) (300, 1);
+END_FUZZIFY
+
+DEFUZZIFY drone_x_acc
+TERM strong_negative := (-1, 1) (-0.5, 0);
+TERM medium_negative := (-1, 0) (-0.5, 1) (0, 0);
+TERM small := (-0.5, 0) (0, 1) (0.5, 0);
+TERM medium_positive := (0, 0) (0.5, 1) (1, 0);
+TERM strong_positive := (0.5, 0) (1, 1);
+METHOD : COG;
+DEFAULT := 0;
+END_DEFUZZIFY
+
+DEFUZZIFY drone_y_acc
+TERM strong_negative := (-1, 1) (-0.5, 0);
+TERM medium_negative := (-1, 0) (-0.5, 1) (0, 0);
+TERM small := (-0.5, 0) (0, 1) (0.5, 0);
+TERM medium_positive := (0, 0) (0.5, 1) (1, 0);
+TERM strong_positive := (0.5, 0) (1, 1);
+METHOD : COG;
+DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK first
+AND: MIN;
+ACT: MIN;
+
+RULE 0: IF total_x_speed IS big_negative AND drone_x_position IS far_negative    THEN drone_x_acc IS strong_positive;
+RULE 1: IF total_x_speed IS big_negative AND drone_x_position IS medium_negative THEN drone_x_acc IS strong_positive;
+RULE 2: IF total_x_speed IS big_negative AND drone_x_position IS middle          THEN drone_x_acc IS medium_positive;
+RULE 3: IF total_x_speed IS big_negative AND drone_x_position IS medium_positive THEN drone_x_acc IS medium_positive;
+RULE 4: IF total_x_speed IS big_negative AND drone_x_position IS far_positive    THEN drone_x_acc IS small;
+
+RULE 5: IF total_x_speed IS medium_negative AND drone_x_position IS far_negative    THEN drone_x_acc IS strong_positive;
+RULE 6: IF total_x_speed IS medium_negative AND drone_x_position IS medium_negative THEN drone_x_acc IS medium_positive;
+RULE 7: IF total_x_speed IS medium_negative AND drone_x_position IS middle          THEN drone_x_acc IS medium_positive;
+RULE 8: IF total_x_speed IS medium_negative AND drone_x_position IS medium_positive THEN drone_x_acc IS small;
+RULE 9: IF total_x_speed IS medium_negative AND drone_x_position IS far_positive    THEN drone_x_acc IS small;
+
+RULE 10: IF total_x_speed IS small AND drone_x_position IS far_negative    THEN drone_x_acc IS strong_positive;
+RULE 11: IF total_x_speed IS small AND drone_x_position IS medium_negative THEN drone_x_acc IS medium_positive;
+RULE 12: IF total_x_speed IS small AND drone_x_position IS middle          THEN drone_x_acc IS small;
+RULE 13: IF total_x_speed IS small AND drone_x_position IS medium_positive THEN drone_x_acc IS medium_negative;
+RULE 14: IF total_x_speed IS small AND drone_x_position IS far_positive    THEN drone_x_acc IS strong_negative;
+
+RULE 15: IF total_x_speed IS medium_positive AND drone_x_position IS far_negative    THEN drone_x_acc IS small;
+RULE 16: IF total_x_speed IS medium_positive AND drone_x_position IS medium_negative THEN drone_x_acc IS small;
+RULE 17: IF total_x_speed IS medium_positive AND drone_x_position IS middle          THEN drone_x_acc IS medium_negative;
+RULE 18: IF total_x_speed IS medium_positive AND drone_x_position IS medium_positive THEN drone_x_acc IS medium_negative;
+RULE 19: IF total_x_speed IS medium_positive AND drone_x_position IS far_positive    THEN drone_x_acc IS strong_negative;
+
+RULE 20: IF total_x_speed IS big_positive AND drone_x_position IS far_negative    THEN drone_x_acc IS small;
+RULE 21: IF total_x_speed IS big_positive AND drone_x_position IS medium_negative THEN drone_x_acc IS medium_negative;
+RULE 22: IF total_x_speed IS big_positive AND drone_x_position IS middle          THEN drone_x_acc IS medium_negative;
+RULE 23: IF total_x_speed IS big_positive AND drone_x_position IS medium_positive THEN drone_x_acc IS strong_negative;
+RULE 24: IF total_x_speed IS big_positive AND drone_x_position IS far_positive    THEN drone_x_acc IS strong_negative;
+
+RULE 25: IF total_y_speed IS big_negative AND drone_x_position IS far_negative    THEN drone_x_acc IS strong_positive;
+RULE 26: IF total_y_speed IS big_negative AND drone_x_position IS medium_negative THEN drone_x_acc IS strong_positive;
+RULE 27: IF total_y_speed IS big_negative AND drone_x_position IS middle          THEN drone_x_acc IS medium_positive;
+RULE 28: IF total_y_speed IS big_negative AND drone_x_position IS medium_positive THEN drone_x_acc IS medium_positive;
+RULE 29: IF total_y_speed IS big_negative AND drone_x_position IS far_positive    THEN drone_x_acc IS small;
+
+RULE 30: IF total_y_speed IS medium_negative AND drone_y_position IS far_negative    THEN drone_y_acc IS strong_positive;
+RULE 31: IF total_y_speed IS medium_negative AND drone_y_position IS medium_negative THEN drone_y_acc IS medium_positive;
+RULE 32: IF total_y_speed IS medium_negative AND drone_y_position IS middle          THEN drone_y_acc IS medium_positive;
+RULE 33: IF total_y_speed IS medium_negative AND drone_y_position IS medium_positive THEN drone_y_acc IS small;
+RULE 34: IF total_y_speed IS medium_negative AND drone_y_position IS far_positive    THEN drone_y_acc IS small;
+
+RULE 35: IF total_y_speed IS small AND drone_y_position IS far_negative    THEN drone_y_acc IS strong_positive;
+RULE 36: IF total_y_speed IS small AND drone_y_position IS medium_negative THEN drone_y_acc IS medium_positive;
+RULE 37: IF total_y_speed IS small AND drone_y_position IS middle          THEN drone_y_acc IS small;
+RULE 38: IF total_y_speed IS small AND drone_y_position IS medium_positive THEN drone_y_acc IS medium_negative;
+RULE 39: IF total_y_speed IS small AND drone_y_position IS far_positive    THEN drone_y_acc IS strong_negative;
+
+RULE 40: IF total_y_speed IS medium_positive AND drone_y_position IS far_negative    THEN drone_y_acc IS small;
+RULE 41: IF total_y_speed IS medium_positive AND drone_y_position IS medium_negative THEN drone_y_acc IS small;
+RULE 42: IF total_y_speed IS medium_positive AND drone_y_position IS middle          THEN drone_y_acc IS medium_negative;
+RULE 43: IF total_y_speed IS medium_positive AND drone_y_position IS medium_positive THEN drone_y_acc IS medium_negative;
+RULE 44: IF total_y_speed IS medium_positive AND drone_y_position IS far_positive    THEN drone_y_acc IS strong_negative;
+
+RULE 45: IF total_y_speed IS big_positive AND drone_y_position IS far_negative    THEN drone_y_acc IS small;
+RULE 46: IF total_y_speed IS big_positive AND drone_y_position IS medium_negative THEN drone_y_acc IS medium_negative;
+RULE 47: IF total_y_speed IS big_positive AND drone_y_position IS middle          THEN drone_y_acc IS medium_negative;
+RULE 48: IF total_y_speed IS big_positive AND drone_y_position IS medium_positive THEN drone_y_acc IS strong_negative;
+RULE 49: IF total_y_speed IS big_positive AND drone_y_position IS far_positive    THEN drone_y_acc IS strong_negative;
+
+END_RULEBLOCK
+END_FUNCTION_BLOCK
