@@ -10,7 +10,6 @@ END_VAR
 
 VAR_OUTPUT
 drone_x_acc: REAL;
-
 drone_y_acc: REAL;
 END_VAR
 
